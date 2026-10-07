@@ -1,0 +1,2211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Airport EXPRESS ✈️ RGM ↔ Harare CBD</title>
+
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#0b2b5c" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <!-- QRCode.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js">
+    </script>
+
+    <!-- Font Awesome 6 (Free) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <style>
+        /* ============================================================
+                   CSS VARIABLES & RESET
+                   ============================================================ */
+        :root {
+            --primary: #0b2b5c;
+            --primary-light: #1a3f7a;
+            --primary-dark: #061a3a;
+            --accent: #f5a623;
+            --accent-light: #f7c35c;
+            --accent-dark: #d4891a;
+            --bg-light: #f4f7fc;
+            --bg-white: #ffffff;
+            --text-dark: #1a1a2e;
+            --text-muted: #5a6a7a;
+            --text-light: #ffffff;
+            --shadow: 0 8px 32px rgba(11, 43, 92, 0.12);
+            --shadow-hover: 0 12px 48px rgba(11, 43, 92, 0.20);
+            --radius: 16px;
+            --radius-sm: 10px;
+            --radius-xs: 6px;
+            --transition: 0.25s ease;
+            --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            --max-width: 900px;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 80px;
+            /* space for bottom nav */
+            overflow-x: hidden;
+        }
+
+        /* ============================================================
+                   SCROLLBAR
+                   ============================================================ */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-light);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-light);
+            border-radius: 10px;
+        }
+
+        /* ============================================================
+                   UTILITY
+                   ============================================================ */
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 16px 16px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+        .text-muted {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        .mt-1 {
+            margin-top: 8px;
+        }
+        .mt-2 {
+            margin-top: 16px;
+        }
+        .mt-3 {
+            margin-top: 24px;
+        }
+        .mb-2 {
+            margin-bottom: 16px;
+        }
+        .mb-3 {
+            margin-bottom: 24px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--accent);
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.75rem;
+            padding: 2px 12px;
+            border-radius: 20px;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 28px;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background var(--transition), transform 0.15s, box-shadow var(--transition);
+            text-decoration: none;
+            min-height: 48px;
+            width: 100%;
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(11, 43, 92, 0.20);
+        }
+        .btn:active {
+            transform: scale(0.97);
+        }
+        .btn-primary {
+            background: var(--primary);
+            color: #fff;
+        }
+        .btn-primary:hover {
+            background: var(--primary-light);
+            box-shadow: 0 6px 20px rgba(11, 43, 92, 0.30);
+        }
+        .btn-accent {
+            background: var(--accent);
+            color: #fff;
+        }
+        .btn-accent:hover {
+            background: var(--accent-dark);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            box-shadow: none;
+        }
+        .btn-outline:hover {
+            background: var(--primary);
+            color: #fff;
+        }
+        .btn-success {
+            background: #2e7d32;
+            color: #fff;
+        }
+        .btn-success:hover {
+            background: #1b5e20;
+        }
+        .btn-danger {
+            background: #c62828;
+            color: #fff;
+        }
+        .btn-danger:hover {
+            background: #b71c1c;
+        }
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 0.85rem;
+            min-height: 36px;
+            width: auto;
+        }
+        .btn-block {
+            width: 100%;
+        }
+        .btn:disabled {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .card {
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 20px 18px;
+            transition: box-shadow var(--transition);
+        }
+        .card:hover {
+            box-shadow: var(--shadow-hover);
+        }
+        .card-header {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary);
+        }
+        .card-header i {
+            font-size: 1.2rem;
+            color: var(--accent);
+        }
+
+        /* ============================================================
+                   HEADER / TOP BAR
+                   ============================================================ */
+        .top-header {
+            background: var(--primary-dark);
+            color: #fff;
+            padding: 12px 16px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.20);
+            min-height: 64px;
+        }
+        .top-header .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            letter-spacing: -0.3px;
+        }
+        .top-header .brand i {
+            font-size: 1.6rem;
+            color: var(--accent);
+        }
+        .top-header .brand small {
+            font-weight: 400;
+            font-size: 0.7rem;
+            opacity: 0.8;
+            display: block;
+            letter-spacing: 0.3px;
+        }
+        .top-header .header-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        .top-header .header-actions button {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 4px 6px;
+            opacity: 0.8;
+            transition: opacity var(--transition);
+        }
+        .top-header .header-actions button:hover {
+            opacity: 1;
+        }
+        .top-header .header-actions .book-count {
+            background: var(--accent);
+            color: var(--primary-dark);
+            font-weight: 700;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 20px;
+            margin-left: 4px;
+        }
+
+        /* ============================================================
+                   BOTTOM NAVIGATION (mobile-first)
+                   ============================================================ */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-white);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 6px 0 env(safe-area-inset-bottom, 8px) 0;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+            z-index: 200;
+            border-top: 1px solid rgba(0, 0, 0, 0.04);
+            height: 70px;
+        }
+        .bottom-nav .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 0.65rem;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 4px 10px;
+            transition: color var(--transition);
+            min-width: 56px;
+            position: relative;
+            text-decoration: none;
+        }
+        .bottom-nav .nav-item i {
+            font-size: 1.4rem;
+            transition: transform 0.2s;
+        }
+        .bottom-nav .nav-item span {
+            line-height: 1.2;
+        }
+        .bottom-nav .nav-item.active {
+            color: var(--primary);
+        }
+        .bottom-nav .nav-item.active i {
+            transform: translateY(-2px);
+        }
+        .bottom-nav .nav-item .nav-badge {
+            position: absolute;
+            top: 0;
+            right: 4px;
+            background: #e53935;
+            color: #fff;
+            font-size: 0.55rem;
+            font-weight: 700;
+            padding: 1px 6px;
+            border-radius: 20px;
+            min-width: 18px;
+            text-align: center;
+        }
+
+        /* ============================================================
+                   PAGE SECTIONS
+                   ============================================================ */
+        .page {
+            display: none;
+            animation: fadeUp 0.3s ease;
+        }
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .page-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .page-title i {
+            color: var(--accent);
+        }
+        .page-subtitle {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+
+        /* ============================================================
+                   HOME / HERO
+                   ============================================================ */
+        .hero-card {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-light));
+            color: #fff;
+            border-radius: var(--radius);
+            padding: 28px 20px 24px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-card::after {
+            content: '✈️';
+            position: absolute;
+            right: -10px;
+            bottom: -20px;
+            font-size: 8rem;
+            opacity: 0.06;
+            transform: rotate(-12deg);
+        }
+        .hero-card h1 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .hero-card .route {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            background: rgba(255, 255, 255, 0.10);
+            padding: 8px 16px;
+            border-radius: 40px;
+            margin: 12px 0 6px;
+            width: fit-content;
+            backdrop-filter: blur(4px);
+        }
+        .hero-card .route i {
+            color: var(--accent);
+        }
+        .hero-card .hero-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-top: 14px;
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+        .hero-card .hero-meta span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .hero-card .hero-meta i {
+            color: var(--accent);
+        }
+
+        .quick-book {
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            padding: 18px 16px;
+            box-shadow: var(--shadow);
+            margin-bottom: 16px;
+        }
+        .quick-book .quick-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+        .quick-book .quick-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .quick-book .quick-grid .qb-item {
+            background: var(--bg-light);
+            border-radius: var(--radius-sm);
+            padding: 12px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: background var(--transition), transform 0.15s;
+            border: 2px solid transparent;
+        }
+        .quick-book .quick-grid .qb-item:active {
+            transform: scale(0.96);
+        }
+        .quick-book .quick-grid .qb-item i {
+            font-size: 1.4rem;
+            color: var(--primary);
+            display: block;
+            margin-bottom: 2px;
+        }
+        .quick-book .quick-grid .qb-item span {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+        .quick-book .quick-grid .qb-item.selected {
+            border-color: var(--accent);
+            background: #fff8e7;
+        }
+
+        /* ============================================================
+                   FORMS
+                   ============================================================ */
+        .form-group {
+            margin-bottom: 16px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+            color: var(--text-dark);
+        }
+        .form-group label .required {
+            color: #c62828;
+            margin-left: 2px;
+        }
+        .form-group .hint {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+        .form-control {
+            width: 100%;
+            padding: 12px 14px;
+            border: 2px solid #e0e6ed;
+            border-radius: var(--radius-sm);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color var(--transition), box-shadow var(--transition);
+            background: #fff;
+            color: var(--text-dark);
+            min-height: 48px;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(11, 43, 92, 0.10);
+        }
+        .form-control::placeholder {
+            color: #b0b8c5;
+        }
+        select.form-control {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235a6a7a' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            padding-right: 40px;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        @media (max-width: 480px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ============================================================
+                   TICKET / CONFIRMATION
+                   ============================================================ */
+        .ticket {
+            background: #fff;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-hover);
+            overflow: hidden;
+            border: 2px solid var(--primary);
+            position: relative;
+        }
+        .ticket-header {
+            background: var(--primary);
+            color: #fff;
+            padding: 14px 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .ticket-header .ticket-number {
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+        .ticket-header .ticket-status {
+            background: #4caf50;
+            padding: 2px 14px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .ticket-body {
+            padding: 18px;
+        }
+        .ticket-body .ticket-route {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-weight: 700;
+            font-size: 1.1rem;
+            padding: 8px 0 12px;
+            border-bottom: 2px dashed #e0e6ed;
+        }
+        .ticket-body .ticket-route .arrow {
+            color: var(--accent);
+            font-size: 1.4rem;
+        }
+        .ticket-body .ticket-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px 16px;
+            padding: 12px 0;
+        }
+        .ticket-body .ticket-details .td-item {
+            font-size: 0.85rem;
+        }
+        .ticket-body .ticket-details .td-item .td-label {
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            font-weight: 600;
+        }
+        .ticket-body .ticket-details .td-item .td-value {
+            font-weight: 600;
+        }
+        .ticket-body .ticket-qr {
+            display: flex;
+            justify-content: center;
+            padding: 12px 0 4px;
+        }
+        .ticket-body .ticket-qr #qrcode {
+            background: #fff;
+            padding: 8px;
+            border-radius: var(--radius-sm);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+        .ticket-body .ticket-qr #qrcode img,
+        .ticket-body .ticket-qr #qrcode canvas {
+            display: block !important;
+            width: 140px !important;
+            height: 140px !important;
+        }
+        .ticket-footer {
+            background: var(--bg-light);
+            padding: 12px 18px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #e8ecf2;
+        }
+        .ticket-footer .valid-badge {
+            color: #2e7d32;
+            font-weight: 600;
+        }
+        .ticket-footer .valid-badge i {
+            color: #4caf50;
+        }
+
+        /* ============================================================
+                   TIMETABLE
+                   ============================================================ */
+        .timetable-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 14px;
+            border-bottom: 1px solid #edf0f5;
+            transition: background var(--transition);
+        }
+        .timetable-item:last-child {
+            border-bottom: none;
+        }
+        .timetable-item:hover {
+            background: #f8faff;
+        }
+        .timetable-item .time {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--primary);
+            min-width: 60px;
+        }
+        .timetable-item .route-info {
+            flex: 1;
+            margin: 0 12px;
+        }
+        .timetable-item .route-info .from-to {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .timetable-item .route-info .from-to i {
+            color: var(--accent);
+            margin: 0 4px;
+        }
+        .timetable-item .route-info .extra {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+        .timetable-item .status-badge {
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 2px 12px;
+            border-radius: 20px;
+            text-transform: uppercase;
+        }
+        .status-badge.available {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+        .status-badge.limited {
+            background: #fff3e0;
+            color: #e65100;
+        }
+        .status-badge.full {
+            background: #fce4ec;
+            color: #c62828;
+        }
+
+        /* ============================================================
+                   STOPS
+                   ============================================================ */
+        .stop-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 14px 0;
+            border-bottom: 1px solid #edf0f5;
+        }
+        .stop-item:last-child {
+            border-bottom: none;
+        }
+        .stop-item .stop-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--bg-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1rem;
+            flex-shrink: 0;
+            border: 2px solid #e0e6ed;
+        }
+        .stop-item .stop-icon.active {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+        .stop-item .stop-info .stop-name {
+            font-weight: 600;
+        }
+        .stop-item .stop-info .stop-desc {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* ============================================================
+                   CONTACT
+                   ============================================================ */
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 0;
+            border-bottom: 1px solid #edf0f5;
+        }
+        .contact-item:last-child {
+            border-bottom: none;
+        }
+        .contact-item .ci-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--bg-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        .contact-item .ci-info .ci-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+        .contact-item .ci-info .ci-value {
+            font-weight: 500;
+        }
+
+        /* ============================================================
+                   SCANNER (Staff / Driver)
+                   ============================================================ */
+        .scanner-area {
+            background: #0a0a1a;
+            border-radius: var(--radius);
+            padding: 20px;
+            min-height: 220px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .scanner-area .scan-placeholder {
+            font-size: 3.5rem;
+            opacity: 0.3;
+            margin-bottom: 8px;
+        }
+        .scanner-area .scan-hint {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        .scanner-area .scan-result {
+            background: rgba(255, 255, 255, 0.10);
+            padding: 16px 20px;
+            border-radius: var(--radius-sm);
+            width: 100%;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.10);
+        }
+        .scanner-area .scan-result .sr-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            opacity: 0.6;
+        }
+        .scanner-area .scan-result .sr-value {
+            font-weight: 700;
+            font-size: 1.1rem;
+            word-break: break-all;
+        }
+        .scanner-area .scan-result .sr-status {
+            margin-top: 6px;
+            font-weight: 600;
+        }
+        .scanner-area .scan-result .sr-status.valid {
+            color: #66bb6a;
+        }
+        .scanner-area .scan-result .sr-status.invalid {
+            color: #ef5350;
+        }
+
+        /* ============================================================
+                   PAYMENT PROTOTYPE
+                   ============================================================ */
+        .payment-method {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 14px;
+            border: 2px solid #e0e6ed;
+            border-radius: var(--radius-sm);
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: border-color var(--transition), background var(--transition);
+        }
+        .payment-method:hover {
+            background: #f8faff;
+        }
+        .payment-method.selected {
+            border-color: var(--primary);
+            background: #f0f5ff;
+        }
+        .payment-method .pm-icon {
+            font-size: 1.6rem;
+            color: var(--primary);
+            width: 40px;
+            text-align: center;
+        }
+        .payment-method .pm-info .pm-name {
+            font-weight: 600;
+        }
+        .payment-method .pm-info .pm-desc {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* ============================================================
+                   TOAST / NOTIFICATION
+                   ============================================================ */
+        .toast-container {
+            position: fixed;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 999;
+            max-width: 400px;
+            width: 90%;
+            pointer-events: none;
+        }
+        .toast {
+            background: var(--primary-dark);
+            color: #fff;
+            padding: 14px 20px;
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-hover);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            pointer-events: auto;
+            animation: slideDown 0.3s ease;
+            font-weight: 500;
+        }
+        .toast.success {
+            background: #2e7d32;
+        }
+        .toast.error {
+            background: #c62828;
+        }
+        .toast i {
+            font-size: 1.2rem;
+        }
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ============================================================
+                   RESPONSIVE TWEAKS
+                   ============================================================ */
+        @media (min-width: 640px) {
+            .top-header .brand {
+                font-size: 1.4rem;
+            }
+            .hero-card h1 {
+                font-size: 2rem;
+            }
+            .quick-book .quick-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            .ticket-body .ticket-details {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+            .bottom-nav .nav-item {
+                font-size: 0.7rem;
+            }
+            .bottom-nav .nav-item i {
+                font-size: 1.6rem;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .top-header .brand {
+                font-size: 1rem;
+            }
+            .top-header .brand small {
+                font-size: 0.6rem;
+            }
+            .hero-card h1 {
+                font-size: 1.3rem;
+            }
+            .hero-card .route {
+                font-size: 0.9rem;
+                padding: 4px 12px;
+            }
+            .btn {
+                font-size: 0.9rem;
+                padding: 10px 18px;
+                min-height: 42px;
+            }
+        }
+
+        /* Print Styles for ticket */
+        @media print {
+            .bottom-nav,
+            .top-header,
+            .btn,
+            .no-print {
+                display: none !important;
+            }
+            body {
+                background: #fff;
+                padding: 0;
+            }
+            .ticket {
+                border: 2px solid #000;
+                box-shadow: none;
+                border-radius: 0;
+            }
+            .ticket-header {
+                background: #000 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .ticket-footer {
+                background: #f4f4f4 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .page {
+                display: block !important;
+            }
+            .page:not(.active) {
+                display: none !important;
+            }
+            #page-home,
+            #page-ticket {
+                display: block !important;
+            }
+        }
+
+        /* ============================================================
+                   LOADING SHIMMER
+                   ============================================================ */
+        .shimmer {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: var(--radius-xs);
+        }
+        @keyframes shimmer {
+            0% {
+                background-position: -200% 0;
+            }
+            100% {
+                background-position: 200% 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================================
+    TOAST CONTAINER
+    ============================================================ -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- ============================================================
+    TOP HEADER
+    ============================================================ -->
+    <header class="top-header">
+        <div class="brand">
+            <i class="fas fa-plane-departure"></i>
+            <div>
+                Airport EXPRESS
+                <small>RGM ↔ Harare CBD</small>
+            </div>
+        </div>
+        <div class="header-actions">
+            <button id="headerBookingsBtn" title="My Bookings" aria-label="My Bookings">
+                <i class="fas fa-ticket-alt"></i>
+                <span class="book-count" id="bookingCountBadge">0</span>
+            </button>
+            <button id="headerRefreshBtn" title="Refresh" aria-label="Refresh">
+                <i class="fas fa-sync-alt"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- ============================================================
+    MAIN CONTENT
+    ============================================================ -->
+    <main class="container" id="app">
+
+        <!-- ======== PAGE: HOME ======== -->
+        <section class="page active" id="page-home">
+            <div class="hero-card">
+                <h1>✈️ Airport Express</h1>
+                <div class="route">
+                    <i class="fas fa-plane"></i> RGM Airport
+                    <i class="fas fa-arrow-right"></i>
+                    Harare CBD
+                </div>
+                <div class="hero-meta">
+                    <span><i class="fas fa-clock"></i> First: 05:00 &bull; Last: 22:00</span>
+                    <span><i class="fas fa-bus"></i> Every 30 min</span>
+                    <span><i class="fas fa-tag"></i> From $12.00</span>
+                </div>
+            </div>
+
+            <div class="quick-book">
+                <div class="quick-title"><i class="fas fa-bolt" style="color:var(--accent);"></i> Quick Book</div>
+                <div class="quick-grid">
+                    <div class="qb-item selected" data-direction="airport-to-cbd" id="qbDirectionAirport">
+                        <i class="fas fa-plane-arrival"></i>
+                        <span>Airport → CBD</span>
+                    </div>
+                    <div class="qb-item" data-direction="cbd-to-airport" id="qbDirectionCbd">
+                        <i class="fas fa-plane-departure"></i>
+                        <span>CBD → Airport</span>
+                    </div>
+                    <div class="qb-item" id="qbToday">
+                        <i class="fas fa-calendar-day"></i>
+                        <span>Today</span>
+                    </div>
+                    <div class="qb-item" id="qbTomorrow">
+                        <i class="fas fa-calendar-plus"></i>
+                        <span>Tomorrow</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header"><i class="fas fa-search"></i> Find Your Trip</div>
+                <form id="bookingForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Direction <span class="required">*</span></label>
+                            <select class="form-control" id="direction" required>
+                                <option value="airport-to-cbd">✈️ RGM Airport → Harare CBD</option>
+                                <option value="cbd-to-airport">🏙️ Harare CBD → RGM Airport</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Date <span class="required">*</span></label>
+                            <input type="date" class="form-control" id="travelDate" required />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Departure Time <span class="required">*</span></label>
+                        <select class="form-control" id="departureTime" required>
+                            <option value="">Select a time</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Passenger Name <span class="required">*</span></label>
+                            <input type="text" class="form-control" id="passengerName" placeholder="e.g. John Moyo" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Email <span class="required">*</span></label>
+                            <input type="email" class="form-control" id="passengerEmail" placeholder="john@example.com" required />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone (optional)</label>
+                        <input type="tel" class="form-control" id="passengerPhone" placeholder="+263 77 123 4567" />
+                    </div>
+                    <button type="submit" class="btn btn-accent" id="bookNowBtn">
+                        <i class="fas fa-ticket-alt"></i> Book Now — $12.00
+                    </button>
+                </form>
+            </div>
+
+            <!-- Upcoming departures preview -->
+            <div class="card mt-2" id="upcomingDepartures">
+                <div class="card-header"><i class="fas fa-clock"></i> Next Departures</div>
+                <div id="departurePreviewList">
+                    <div class="timetable-item">
+                        <div class="time">05:00</div>
+                        <div class="route-info">
+                            <div class="from-to">RGM Airport <i class="fas fa-arrow-right"></i> Harare CBD</div>
+                            <div class="extra">Available</div>
+                        </div>
+                        <span class="status-badge available">Available</span>
+                    </div>
+                    <div class="timetable-item">
+                        <div class="time">05:30</div>
+                        <div class="route-info">
+                            <div class="from-to">RGM Airport <i class="fas fa-arrow-right"></i> Harare CBD</div>
+                            <div class="extra">Available</div>
+                        </div>
+                        <span class="status-badge available">Available</span>
+                    </div>
+                    <div class="timetable-item">
+                        <div class="time">06:00</div>
+                        <div class="route-info">
+                            <div class="from-to">RGM Airport <i class="fas fa-arrow-right"></i> Harare CBD</div>
+                            <div class="extra">Limited seats</div>
+                        </div>
+                        <span class="status-badge limited">Limited</span>
+                    </div>
+                </div>
+                <button class="btn btn-outline btn-sm mt-2" id="viewFullTimetableBtn" style="width:auto;">
+                    <i class="fas fa-table"></i> Full Timetable
+                </button>
+            </div>
+        </section>
+
+        <!-- ======== PAGE: TIMETABLE ======== -->
+        <section class="page" id="page-timetable">
+            <h2 class="page-title"><i class="fas fa-table"></i> Timetable</h2>
+            <p class="page-subtitle">Daily departures from RGM Airport to Harare CBD and return.</p>
+
+            <div class="card">
+                <div class="card-header"><i class="fas fa-plane-departure"></i> RGM Airport → Harare CBD</div>
+                <div id="timetableAirportToCbd"></div>
+            </div>
+
+            <div class="card mt-2">
+                <div class="card-header"><i class="fas fa-plane-arrival"></i> Harare CBD → RGM Airport</div>
+                <div id="timetableCbdToAirport"></div>
+            </div>
+
+            <p class="text-muted text-center mt-2" style="font-size:0.8rem;">
+                <i class="fas fa-info-circle"></i> Times are subject to change. Please arrive 15 min before departure.
+            </p>
+        </section>
+
+        <!-- ======== PAGE: STOPS ======== -->
+        <section class="page" id="page-stops">
+            <h2 class="page-title"><i class="fas fa-map-pin"></i> Stops</h2>
+            <p class="page-subtitle">Pick-up and drop-off points along the route.</p>
+
+            <div class="card">
+                <div class="card-header"><i class="fas fa-route"></i> Route Stops</div>
+                <div id="stopsList">
+                    <div class="stop-item">
+                        <div class="stop-icon active"><i class="fas fa-plane"></i></div>
+                        <div class="stop-info">
+                            <div class="stop-name">RGM Airport Terminal</div>
+                            <div class="stop-desc">Main terminal, arrivals level • 24/7</div>
+                        </div>
+                    </div>
+                    <div class="stop-item">
+                        <div class="stop-icon"><i class="fas fa-road"></i></div>
+                        <div class="stop-info">
+                            <div class="stop-name">Samora Machel Ave</div>
+                            <div class="stop-desc">Opposite ZANU PF HQ • 24/7</div>
+                        </div>
+                    </div>
+                    <div class="stop-item">
+                        <div class="stop-icon"><i class="fas fa-building"></i></div>
+                        <div class="stop-info">
+                            <div class="stop-name">Harare Gardens</div>
+                            <div class="stop-desc">Main entrance • 24/7</div>
+                        </div>
+                    </div>
+                    <div class="stop-item">
+                        <div class="stop-icon"><i class="fas fa-hotel"></i></div>
+                        <div class="stop-info">
+                            <div class="stop-name">Meikles Hotel</div>
+                            <div class="stop-desc">Jason Moyo Ave • 24/7</div>
+                        </div>
+                    </div>
+                    <div class="stop-item">
+                        <div class="stop-icon"><i class="fas fa-train"></i></div>
+                        <div class="stop-info">
+                            <div class="stop-name">Harare CBD Terminal</div>
+                            <div class="stop-desc">Corner Robert Mugabe & Julius Nyerere • 24/7</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-2 text-muted" style="font-size:0.8rem; padding:8px 0;">
+                    <i class="fas fa-plus-circle" style="color:var(--accent);"></i>
+                    <em>Future stops can be added here — easily configurable.</em>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======== PAGE: TICKET ======== -->
+        <section class="page" id="page-ticket">
+            <h2 class="page-title"><i class="fas fa-ticket-alt"></i> Your Digital Ticket</h2>
+            <p class="page-subtitle" id="ticketSubtitle">Booking confirmation &amp; QR code.</p>
+
+            <div id="ticketContainer">
+                <!-- Filled dynamically -->
+            </div>
+
+            <div class="no-print" style="display:flex; gap:10px; margin-top:16px; flex-wrap:wrap;">
+                <button class="btn btn-primary btn-sm" id="printTicketBtn" style="width:auto; flex:1;">
+                    <i class="fas fa-print"></i> Print
+                </button>
+                <button class="btn btn-outline btn-sm" id="emailTicketBtn" style="width:auto; flex:1;">
+                    <i class="fas fa-envelope"></i> Email
+                </button>
+                <button class="btn btn-outline btn-sm" id="backHomeFromTicketBtn" style="width:auto; flex:1;">
+                    <i class="fas fa-arrow-left"></i> Back
+                </button>
+            </div>
+        </section>
+
+        <!-- ======== PAGE: SCANNER (Staff) ======== -->
+        <section class="page" id="page-scanner">
+            <h2 class="page-title"><i class="fas fa-qrcode"></i> Ticket Scanner</h2>
+            <p class="page-subtitle">Staff / Driver — validate passenger tickets.</p>
+
+            <div class="card">
+                <div class="scanner-area" id="scannerArea">
+                    <div class="scan-placeholder"><i class="fas fa-qrcode"></i></div>
+                    <div class="scan-hint">Tap "Scan" to validate a ticket QR code</div>
+                    <div class="scan-result hidden" id="scanResult">
+                        <div class="sr-label">Scanned Data</div>
+                        <div class="sr-value" id="scannedValue">—</div>
+                        <div class="sr-status" id="scannedStatus">Validating…</div>
+                    </div>
+                </div>
+                <div style="display:flex; gap:10px; margin-top:14px; flex-wrap:wrap;">
+                    <button class="btn btn-primary btn-sm" id="scanSimulateBtn" style="width:auto; flex:1;">
+                        <i class="fas fa-camera"></i> Simulate Scan
+                    </button>
+                    <button class="btn btn-outline btn-sm" id="clearScanBtn" style="width:auto; flex:1;">
+                        <i class="fas fa-undo"></i> Clear
+                    </button>
+                </div>
+                <div class="mt-2 text-muted" style="font-size:0.8rem;">
+                    <i class="fas fa-info-circle"></i> In production, this would use the device camera.
+                </div>
+            </div>
+
+            <!-- Recently validated -->
+            <div class="card mt-2">
+                <div class="card-header"><i class="fas fa-history"></i> Recent Validations</div>
+                <div id="validationHistory">
+                    <p class="text-muted" style="font-size:0.85rem;">No recent validations.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======== PAGE: CONTACT ======== -->
+        <section class="page" id="page-contact">
+            <h2 class="page-title"><i class="fas fa-headset"></i> Contact</h2>
+            <p class="page-subtitle">Get in touch with Airport EXPRESS.</p>
+
+            <div class="card">
+                <div class="contact-item">
+                    <div class="ci-icon"><i class="fas fa-phone-alt"></i></div>
+                    <div class="ci-info">
+                        <div class="ci-label">Phone</div>
+                        <div class="ci-value">+263 24 212 3456</div>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="ci-icon"><i class="fas fa-mobile-alt"></i></div>
+                    <div class="ci-info">
+                        <div class="ci-label">WhatsApp</div>
+                        <div class="ci-value">+263 77 123 4567</div>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="ci-icon"><i class="fas fa-envelope"></i></div>
+                    <div class="ci-info">
+                        <div class="ci-label">Email</div>
+                        <div class="ci-value">support@airportexpress.co.zw</div>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="ci-icon"><i class="fas fa-globe"></i></div>
+                    <div class="ci-info">
+                        <div class="ci-label">Website</div>
+                        <div class="ci-value">airportexpress.co.zw</div>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="ci-icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <div class="ci-info">
+                        <div class="ci-label">Office</div>
+                        <div class="ci-value">Harare CBD Terminal, Corner Robert Mugabe &amp; Julius Nyerere</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-2">
+                <div class="card-header"><i class="fas fa-clock"></i> Support Hours</div>
+                <p style="font-size:0.95rem;"><strong>Daily:</strong> 05:00 – 23:00</p>
+                <p class="text-muted" style="font-size:0.85rem;">Emergency support available 24/7 via phone.</p>
+            </div>
+        </section>
+
+        <!-- ======== PAGE: BOOKINGS LIST ======== -->
+        <section class="page" id="page-bookings">
+            <h2 class="page-title"><i class="fas fa-ticket-alt"></i> My Bookings</h2>
+            <p class="page-subtitle" id="bookingsSubtitle">All your confirmed tickets.</p>
+
+            <div id="bookingsList">
+                <p class="text-muted" style="text-align:center; padding:30px 0;">
+                    <i class="fas fa-inbox" style="font-size:2rem; display:block; opacity:0.3; margin-bottom:8px;"></i>
+                    No bookings yet. <br />
+                    <a href="#" id="bookingsGoHomeLink" style="color:var(--primary); font-weight:600;">Book your first trip!</a>
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ============================================================
+    BOTTOM NAVIGATION
+    ============================================================ -->
+    <nav class="bottom-nav" id="bottomNav">
+        <button class="nav-item active" data-page="home" aria-label="Home">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </button>
+        <button class="nav-item" data-page="timetable" aria-label="Timetable">
+            <i class="fas fa-table"></i>
+            <span>Schedule</span>
+        </button>
+        <button class="nav-item" data-page="stops" aria-label="Stops">
+            <i class="fas fa-map-pin"></i>
+            <span>Stops</span>
+        </button>
+        <button class="nav-item" data-page="scanner" aria-label="Scanner">
+            <i class="fas fa-qrcode"></i>
+            <span>Scan</span>
+        </button>
+        <button class="nav-item" data-page="contact" aria-label="Contact">
+            <i class="fas fa-headset"></i>
+            <span>Contact</span>
+        </button>
+    </nav>
+
+    <!-- ============================================================
+    JAVASCRIPT — COMPLETE APP LOGIC
+    ============================================================ -->
+    <script>
+        (function() {
+            'use strict';
+
+            // ============================================================
+            // CONFIGURATION — easily adjustable
+            // ============================================================
+            const CONFIG = {
+                companyName: 'Airport EXPRESS',
+                route: 'RGM Airport ↔ Harare CBD',
+                fare: 12.00,
+                currency: '$',
+                // Timetable: times in "HH:MM" format
+                timetable: {
+                    'airport-to-cbd': [
+                        '05:00', '05:30', '06:00', '06:30', '07:00', '07:30',
+                        '08:00', '08:30', '09:00', '09:30', '10:00', '10:30',
+                        '11:00', '11:30', '12:00', '12:30', '13:00', '13:30',
+                        '14:00', '14:30', '15:00', '15:30', '16:00', '16:30',
+                        '17:00', '17:30', '18:00', '18:30', '19:00', '19:30',
+                        '20:00', '20:30', '21:00', '21:30', '22:00'
+                    ],
+                    'cbd-to-airport': [
+                        '05:30', '06:00', '06:30', '07:00', '07:30', '08:00',
+                        '08:30', '09:00', '09:30', '10:00', '10:30', '11:00',
+                        '11:30', '12:00', '12:30', '13:00', '13:30', '14:00',
+                        '14:30', '15:00', '15:30', '16:00', '16:30', '17:00',
+                        '17:30', '18:00', '18:30', '19:00', '19:30', '20:00',
+                        '20:30', '21:00', '21:30', '22:00', '22:30'
+                    ]
+                },
+                // Future stops (easily add more)
+                stops: [
+                    { name: 'RGM Airport Terminal', desc: 'Main terminal, arrivals level • 24/7', icon: 'plane' },
+                    { name: 'Samora Machel Ave', desc: 'Opposite ZANU PF HQ • 24/7', icon: 'road' },
+                    { name: 'Harare Gardens', desc: 'Main entrance • 24/7', icon: 'building' },
+                    { name: 'Meikles Hotel', desc: 'Jason Moyo Ave • 24/7', icon: 'hotel' },
+                    { name: 'Harare CBD Terminal', desc: 'Corner Robert Mugabe & Julius Nyerere • 24/7', icon: 'train' }
+                ]
+            };
+
+            // ============================================================
+            // STATE
+            // ============================================================
+            let bookings = [];
+            let currentPage = 'home';
+            let editingBookingId = null;
+
+            // Load from localStorage
+            try {
+                const saved = localStorage.getItem('airportExpress_bookings');
+                if (saved) bookings = JSON.parse(saved);
+            } catch (_) { /* ignore */ }
+
+            // ============================================================
+            // DOM REFS
+            // ============================================================
+            const $ = (s) => document.querySelector(s);
+            const $$ = (s) => document.querySelectorAll(s);
+
+            const pages = $$('.page');
+            const navItems = $$('.bottom-nav .nav-item');
+            const toastContainer = $('#toastContainer');
+
+            // Home
+            const bookingForm = $('#bookingForm');
+            const direction = $('#direction');
+            const travelDate = $('#travelDate');
+            const departureTime = $('#departureTime');
+            const passengerName = $('#passengerName');
+            const passengerEmail = $('#passengerEmail');
+            const passengerPhone = $('#passengerPhone');
+            const bookNowBtn = $('#bookNowBtn');
+            const qbDirectionAirport = $('#qbDirectionAirport');
+            const qbDirectionCbd = $('#qbDirectionCbd');
+            const qbToday = $('#qbToday');
+            const qbTomorrow = $('#qbTomorrow');
+            const departurePreviewList = $('#departurePreviewList');
+            const viewFullTimetableBtn = $('#viewFullTimetableBtn');
+
+            // Ticket
+            const ticketContainer = $('#ticketContainer');
+            const ticketSubtitle = $('#ticketSubtitle');
+            const printTicketBtn = $('#printTicketBtn');
+            const emailTicketBtn = $('#emailTicketBtn');
+            const backHomeFromTicketBtn = $('#backHomeFromTicketBtn');
+
+            // Timetable
+            const timetableAirportToCbd = $('#timetableAirportToCbd');
+            const timetableCbdToAirport = $('#timetableCbdToAirport');
+
+            // Scanner
+            const scannerArea = $('#scannerArea');
+            const scanResult = $('#scanResult');
+            const scannedValue = $('#scannedValue');
+            const scannedStatus = $('#scannedStatus');
+            const scanSimulateBtn = $('#scanSimulateBtn');
+            const clearScanBtn = $('#clearScanBtn');
+            const validationHistory = $('#validationHistory');
+
+            // Bookings list
+            const bookingsList = $('#bookingsList');
+            const bookingsSubtitle = $('#bookingsSubtitle');
+            const bookingCountBadge = $('#bookingCountBadge');
+            const bookingsGoHomeLink = $('#bookingsGoHomeLink');
+            const headerBookingsBtn = $('#headerBookingsBtn');
+            const headerRefreshBtn = $('#headerRefreshBtn');
+
+            // ============================================================
+            // UTILITY FUNCTIONS
+            // ============================================================
+            function generateBookingNumber() {
+                const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+                let result = 'AE-';
+                for (let i = 0; i < 6; i++) {
+                    result += chars.charAt(Math.floor(Math.random() * chars.length));
+                }
+                return result;
+            }
+
+            function formatDate(dateStr) {
+                const d = new Date(dateStr + 'T00:00:00');
+                return d.toLocaleDateString('en-ZW', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+            }
+
+            function getDirectionLabel(dir) {
+                return dir === 'airport-to-cbd' ? 'RGM Airport → Harare CBD' : 'Harare CBD → RGM Airport';
+            }
+
+            function getDirectionShort(dir) {
+                return dir === 'airport-to-cbd' ? 'Airport → CBD' : 'CBD → Airport';
+            }
+
+            function getFareDisplay() {
+                return CONFIG.currency + CONFIG.fare.toFixed(2);
+            }
+
+            function getStatusForTime(time, dir) {
+                // Simulate availability: random but deterministic based on time
+                const h = parseInt(time.split(':')[0]);
+                if (h >= 6 && h <= 9) return 'limited';
+                if (h >= 16 && h <= 18) return 'limited';
+                if (h >= 22) return 'full';
+                return 'available';
+            }
+
+            function getStatusLabel(status) {
+                const map = { available: 'Available', limited: 'Limited', full: 'Full' };
+                return map[status] || status;
+            }
+
+            function getStatusClass(status) {
+                return status;
+            }
+
+            function saveBookings() {
+                try {
+                    localStorage.setItem('airportExpress_bookings', JSON.stringify(bookings));
+                } catch (_) { /* ignore */ }
+                updateBookingBadge();
+            }
+
+            function updateBookingBadge() {
+                const count = bookings.length;
+                bookingCountBadge.textContent = count;
+                bookingCountBadge.style.display = count > 0 ? 'inline' : 'none';
+            }
+
+            function showToast(message, type = 'info') {
+                const toast = document.createElement('div');
+                toast.className = 'toast ' + type;
+                const iconMap = { success: 'fa-check-circle', error: 'fa-exclamation-circle', info: 'fa-info-circle' };
+                toast.innerHTML = `<i class="fas ${iconMap[type] || iconMap.info}"></i> ${message}`;
+                toastContainer.appendChild(toast);
+                setTimeout(() => {
+                    toast.style.opacity = '0';
+                    toast.style.transform = 'translateY(-10px)';
+                    setTimeout(() => toast.remove(), 300);
+                }, 4000);
+            }
+
+            // ============================================================
+            // POPULATE TIMETABLE DROPDOWN
+            // ============================================================
+            function populateTimeDropdown(dir) {
+                const times = CONFIG.timetable[dir] || CONFIG.timetable['airport-to-cbd'];
+                departureTime.innerHTML = '<option value="">Select a time</option>';
+                times.forEach(t => {
+                    const opt = document.createElement('option');
+                    opt.value = t;
+                    opt.textContent = t;
+                    departureTime.appendChild(opt);
+                });
+            }
+
+            // ============================================================
+            // RENDER TIMETABLE PAGES
+            // ============================================================
+            function renderTimetable() {
+                const render = (container, dir, label) => {
+                    const times = CONFIG.timetable[dir] || [];
+                    container.innerHTML = '';
+                    if (times.length === 0) {
+                        container.innerHTML = '<p class="text-muted">No times available.</p>';
+                        return;
+                    }
+                    times.forEach(t => {
+                        const status = getStatusForTime(t, dir);
+                        const div = document.createElement('div');
+                        div.className = 'timetable-item';
+                        div.innerHTML = `
+                                <div class="time">${t}</div>
+                                <div class="route-info">
+                                    <div class="from-to">${label}</div>
+                                    <div class="extra">${getStatusLabel(status)}</div>
+                                </div>
+                                <span class="status-badge ${getStatusClass(status)}">${getStatusLabel(status)}</span>
+                            `;
+                        container.appendChild(div);
+                    });
+                };
+                render(timetableAirportToCbd, 'airport-to-cbd', 'RGM Airport → Harare CBD');
+                render(timetableCbdToAirport, 'cbd-to-airport', 'Harare CBD → RGM Airport');
+            }
+
+            // ============================================================
+            // RENDER HOME DEPARTURE PREVIEW
+            // ============================================================
+            function renderDeparturePreview() {
+                const times = CONFIG.timetable['airport-to-cbd'].slice(0, 8);
+                departurePreviewList.innerHTML = '';
+                times.forEach(t => {
+                    const status = getStatusForTime(t, 'airport-to-cbd');
+                    const div = document.createElement('div');
+                    div.className = 'timetable-item';
+                    div.innerHTML = `
+                            <div class="time">${t}</div>
+                            <div class="route-info">
+                                <div class="from-to">RGM Airport <i class="fas fa-arrow-right"></i> Harare CBD</div>
+                                <div class="extra">${getStatusLabel(status)}</div>
+                            </div>
+                            <span class="status-badge ${getStatusClass(status)}">${getStatusLabel(status)}</span>
+                        `;
+                    departurePreviewList.appendChild(div);
+                });
+            }
+
+            // ============================================================
+            // QR CODE GENERATION
+            // ============================================================
+            function generateQR(element, data) {
+                element.innerHTML = '';
+                try {
+                    new QRCode(element, {
+                        text: data,
+                        width: 140,
+                        height: 140,
+                        colorDark: '#0b2b5c',
+                        colorLight: '#ffffff',
+                        correctLevel: QRCode.CorrectLevel.H
+                    });
+                } catch (_) {
+                    element.innerHTML = '<p style="font-size:0.8rem;color:#999;">QR unavailable</p>';
+                }
+            }
+
+            // ============================================================
+            // RENDER TICKET
+            // ============================================================
+            function renderTicket(booking) {
+                const dirLabel = getDirectionLabel(booking.direction);
+                const dateStr = formatDate(booking.date);
+                const qrData = JSON.stringify({
+                    booking: booking.bookingNumber,
+                    name: booking.passengerName,
+                    date: booking.date,
+                    time: booking.time,
+                    direction: booking.direction
+                });
+
+                ticketContainer.innerHTML = `
+                        <div class="ticket">
+                            <div class="ticket-header">
+                                <span class="ticket-number"><i class="fas fa-ticket-alt"></i> ${booking.bookingNumber}</span>
+                                <span class="ticket-status"><i class="fas fa-check-circle"></i> Confirmed</span>
+                            </div>
+                            <div class="ticket-body">
+                                <div class="ticket-route">
+                                    <span>${dirLabel}</span>
+                                    <span class="arrow"><i class="fas fa-plane"></i></span>
+                                </div>
+                                <div class="ticket-details">
+                                    <div class="td-item">
+                                        <div class="td-label">Date</div>
+                                        <div class="td-value">${dateStr}</div>
+                                    </div>
+                                    <div class="td-item">
+                                        <div class="td-label">Departure</div>
+                                        <div class="td-value">${booking.time}</div>
+                                    </div>
+                                    <div class="td-item">
+                                        <div class="td-label">Passenger</div>
+                                        <div class="td-value">${booking.passengerName}</div>
+                                    </div>
+                                    <div class="td-item">
+                                        <div class="td-label">Email</div>
+                                        <div class="td-value">${booking.passengerEmail}</div>
+                                    </div>
+                                    <div class="td-item">
+                                        <div class="td-label">Phone</div>
+                                        <div class="td-value">${booking.passengerPhone || '—'}</div>
+                                    </div>
+                                    <div class="td-item">
+                                        <div class="td-label">Fare</div>
+                                        <div class="td-value">${getFareDisplay()}</div>
+                                    </div>
+                                </div>
+                                <div class="ticket-qr">
+                                    <div id="qrcode"></div>
+                                </div>
+                            </div>
+                            <div class="ticket-footer">
+                                <span><i class="far fa-clock"></i> Valid for travel</span>
+                                <span class="valid-badge"><i class="fas fa-check-circle"></i> Valid</span>
+                            </div>
+                        </div>
+                    `;
+
+                // Generate QR
+                const qrContainer = document.getElementById('qrcode');
+                if (qrContainer) {
+                    generateQR(qrContainer, qrData);
+                }
+
+                ticketSubtitle.textContent = `Booking #${booking.bookingNumber} • ${booking.passengerName}`;
+            }
+
+            // ============================================================
+            // BOOKING SUBMISSION
+            // ============================================================
+            function handleBookingSubmit(e) {
+                e.preventDefault();
+
+                const dir = direction.value;
+                const date = travelDate.value;
+                const time = departureTime.value;
+                const name = passengerName.value.trim();
+                const email = passengerEmail.value.trim();
+                const phone = passengerPhone.value.trim();
+
+                if (!dir || !date || !time || !name || !email) {
+                    showToast('Please fill in all required fields.', 'error');
+                    return;
+                }
+
+                // Validate email
+                if (!email.includes('@') || !email.includes('.')) {
+                    showToast('Please enter a valid email address.', 'error');
+                    return;
+                }
+
+                // Check if date is not in the past
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                const selectedDate = new Date(date + 'T00:00:00');
+                if (selectedDate < today) {
+                    showToast('Please select today or a future date.', 'error');
+                    return;
+                }
+
+                const booking = {
+                    bookingNumber: generateBookingNumber(),
+                    direction: dir,
+                    date: date,
+                    time: time,
+                    passengerName: name,
+                    passengerEmail: email,
+                    passengerPhone: phone,
+                    fare: CONFIG.fare,
+                    createdAt: new Date().toISOString(),
+                    validated: false,
+                    validatedAt: null
+                };
+
+                bookings.push(booking);
+                saveBookings();
+
+                // Show ticket
+                renderTicket(booking);
+                navigateTo('ticket');
+
+                showToast(`✅ Booking confirmed! #${booking.bookingNumber}`, 'success');
+
+                // Reset form
+                bookingForm.reset();
+                // Set default date again
+                setDefaultDate();
+                populateTimeDropdown(direction.value);
+                // Reset quick book selections
+                $$('.quick-book .qb-item').forEach(el => el.classList.remove('selected'));
+                qbDirectionAirport.classList.add('selected');
+
+                // Update booking badge
+                updateBookingBadge();
+            }
+
+            // ============================================================
+            // NAVIGATION
+            // ============================================================
+            function navigateTo(pageId) {
+                // Hide all pages
+                pages.forEach(p => p.classList.remove('active'));
+                // Show target
+                const target = document.getElementById('page-' + pageId);
+                if (target) target.classList.add('active');
+
+                // Update nav
+                navItems.forEach(item => {
+                    item.classList.toggle('active', item.dataset.page === pageId);
+                });
+
+                currentPage = pageId;
+
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                // Render content based on page
+                if (pageId === 'bookings') renderBookingsList();
+                if (pageId === 'timetable') renderTimetable();
+                if (pageId === 'ticket' && bookings.length > 0) {
+                    // Show the most recent booking if no specific one
+                    const last = bookings[bookings.length - 1];
+                    if (last) renderTicket(last);
+                }
+            }
+
+            // ============================================================
+            // RENDER BOOKINGS LIST
+            // ============================================================
+            function renderBookingsList() {
+                if (bookings.length === 0) {
+                    bookingsList.innerHTML = `
+                            <p class="text-muted" style="text-align:center; padding:30px 0;">
+                                <i class="fas fa-inbox" style="font-size:2rem; display:block; opacity:0.3; margin-bottom:8px;"></i>
+                                No bookings yet. <br />
+                                <a href="#" id="bookingsGoHomeLink" style="color:var(--primary); font-weight:600;">Book your first trip!</a>
+                            </p>
+                        `;
+                    const link = bookingsList.querySelector('#bookingsGoHomeLink');
+                    if (link) link.addEventListener('click', (e) => { e.preventDefault();
+                        navigateTo('home'); });
+                    bookingsSubtitle.textContent = 'You have no bookings yet.';
+                    return;
+                }
+
+                bookingsSubtitle.textContent = `You have ${bookings.length} booking${bookings.length > 1 ? 's' : ''}.`;
+                let html = '';
+                bookings.slice().reverse().forEach((b, idx) => {
+                    const realIdx = bookings.length - 1 - idx;
+                    const dateStr = formatDate(b.date);
+                    const dirLabel = getDirectionShort(b.direction);
+                    const status = b.validated ? '✅ Validated' : '🎫 Confirmed';
+                    html += `
+                            <div class="card" style="margin-bottom:12px; padding:14px 16px; cursor:pointer;" data-booking-index="${realIdx}">
+                                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
+                                    <div>
+                                        <strong style="color:var(--primary);">${b.bookingNumber}</strong>
+                                        <span style="font-size:0.8rem; color:var(--text-muted); margin-left:8px;">${dirLabel}</span>
+                                    </div>
+                                    <span style="font-size:0.75rem; font-weight:600; background:${b.validated ? '#e8f5e9' : '#fff8e7'}; padding:2px 12px; border-radius:20px; color:${b.validated ? '#2e7d32' : '#e65100'};">
+                                        ${status}
+                                    </span>
+                                </div>
+                                <div style="font-size:0.85rem; margin-top:4px; color:var(--text-muted);">
+                                    ${dateStr} at ${b.time} • ${b.passengerName}
+                                </div>
+                                <div style="margin-top:8px; display:flex; gap:8px; flex-wrap:wrap;">
+                                    <button class="btn btn-primary btn-sm view-ticket-btn" data-index="${realIdx}" style="width:auto; flex:1;">
+                                        <i class="fas fa-eye"></i> View Ticket
+                                    </button>
+                                    <button class="btn btn-danger btn-sm delete-booking-btn" data-index="${realIdx}" style="width:auto; flex:1; background:#e53935;">
+                                        <i class="fas fa-trash-alt"></i> Delete
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                });
+                bookingsList.innerHTML = html;
+
+                // Event listeners for view ticket
+                bookingsList.querySelectorAll('.view-ticket-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const idx = parseInt(btn.dataset.index);
+                        const booking = bookings[idx];
+                        if (booking) {
+                            renderTicket(booking);
+                            navigateTo('ticket');
+                        }
+                    });
+                });
+
+                // Event listeners for delete
+                bookingsList.querySelectorAll('.delete-booking-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const idx = parseInt(btn.dataset.index);
+                        if (confirm(`Delete booking ${bookings[idx]?.bookingNumber || ''}?`)) {
+                            bookings.splice(idx, 1);
+                            saveBookings();
+                            renderBookingsList();
+                            updateBookingBadge();
+                            showToast('Booking deleted.', 'info');
+                            if (bookings.length === 0 && currentPage === 'ticket') {
+                                navigateTo('home');
+                            }
+                        }
+                    });
+                });
+
+                // Click on card to view ticket
+                bookingsList.querySelectorAll('.card[data-booking-index]').forEach(card => {
+                    card.addEventListener('click', () => {
+                        const idx = parseInt(card.dataset.bookingIndex);
+                        const booking = bookings[idx];
+                        if (booking) {
+                            renderTicket(booking);
+                            navigateTo('ticket');
+                        }
+                    });
+                });
+            }
+
+            // ============================================================
+            // SCANNER LOGIC
+            // ============================================================
+            let validationHistoryData = [];
+
+            function simulateScan() {
+                // Pick a random booking or generate a fake one
+                let qrData;
+                if (bookings.length > 0) {
+                    const randomBooking = bookings[Math.floor(Math.random() * bookings.length)];
+                    qrData = JSON.stringify({
+                        booking: randomBooking.bookingNumber,
+                        name: randomBooking.passengerName,
+                        date: randomBooking.date,
+                        time: randomBooking.time,
+                        direction: randomBooking.direction
+                    });
+                } else {
+                    // Generate a fake QR data for demo
+                    qrData = JSON.stringify({
+                        booking: 'AE-DEMO01',
+                        name: 'Demo Passenger',
+                        date: new Date().toISOString().slice(0, 10),
+                        time: '10:00',
+                        direction: 'airport-to-cbd'
+                    });
+                }
+
+                // Show scan result
+                scanResult.classList.remove('hidden');
+                scannedValue.textContent = qrData;
+
+                // Validate: check if booking exists
+                let found = null;
+                try {
+                    const parsed = JSON.parse(qrData);
+                    if (parsed.booking) {
+                        found = bookings.find(b => b.bookingNumber === parsed.booking);
+                    }
+                } catch (_) { /* ignore */ }
+
+                if (found) {
+                    scannedStatus.textContent = '✅ VALID — Ticket confirmed!';
+                    scannedStatus.className = 'sr-status valid';
+                    if (!found.validated) {
+                        found.validated = true;
+                        found.validatedAt = new Date().toISOString();
+                        saveBookings();
+                        validationHistoryData.unshift({
+                            booking: found.bookingNumber,
+                            name: found.passengerName,
+                            time: new Date().toLocaleTimeString(),
+                            status: 'Validated'
+                        });
+                        showToast(`✅ Ticket ${found.bookingNumber} validated!`, 'success');
+                    } else {
+                        validationHistoryData.unshift({
+                            booking: found.bookingNumber,
+                            name: found.passengerName,
+                            time: new Date().toLocaleTimeString(),
+                            status: 'Re-validated'
+                        });
+                        showToast(`ℹ️ Ticket ${found.bookingNumber} already validated.`, 'info');
+                    }
+                } else {
+                    scannedStatus.textContent = '❌ INVALID — Ticket not found.';
+                    scannedStatus.className = 'sr-status invalid';
+                    validationHistoryData.unshift({
+                        booking: 'Unknown',
+                        name: '—',
+                        time: new Date().toLocaleTimeString(),
+                        status: 'Invalid scan'
+                    });
+                    showToast('❌ Invalid ticket scanned.', 'error');
+                }
+
+                renderValidationHistory();
+            }
+
+            function renderValidationHistory() {
+                if (validationHistoryData.length === 0) {
+                    validationHistory.innerHTML = '<p class="text-muted" style="font-size:0.85rem;">No recent validations.</p>';
+                    return;
+                }
+                let html = '';
+                validationHistoryData.slice(0, 10).forEach(item => {
+                    const statusColor = item.status === 'Validated' ? '#2e7d32' : item.status === 'Re-validated' ?
+                        '#e65100' : '#c62828';
+                    html += `
+                            <div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid #edf0f5; font-size:0.85rem;">
+                                <span><strong>${item.booking}</strong> — ${item.name}</span>
+                                <span style="color:${statusColor}; font-weight:600;">${item.status}</span>
+                                <span style="color:var(--text-muted); font-size:0.7rem;">${item.time}</span>
+                            </div>
+                        `;
+                });
+                validationHistory.innerHTML = html;
+            }
+
+            // ============================================================
+            // SET DEFAULT DATE
+            // ============================================================
+            function setDefaultDate() {
+                const today = new Date();
+                const year = today.getFullYear();
+                const month = String(today.getMonth() + 1).padStart(2, '0');
+                const day = String(today.getDate()).padStart(2, '0');
+                travelDate.value = `${year}-${month}-${day}`;
+            }
+
+            // ============================================================
+            // EVENT LISTENERS
+            // ============================================================
+
+            // ---- Navigation ----
+            navItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const page = item.dataset.page;
+                    if (page === 'bookings') {
+                        navigateTo('bookings');
+                    } else {
+                        navigateTo(page);
+                    }
+                });
+            });
+
+            // Header bookings button
+            headerBookingsBtn.addEventListener('click', () => navigateTo('bookings'));
+
+            // Header refresh
+            headerRefreshBtn.addEventListener('click', () => {
+                showToast('🔄 Refreshed', 'info');
+                renderDeparturePreview();
+                renderTimetable();
+            });
+
+            // ---- Quick Book ----
+            qbDirectionAirport.addEventListener('click', function() {
+                $$('.quick-book .qb-item').forEach(el => el.classList.remove('selected'));
+                this.classList.add('selected');
+                direction.value = 'airport-to-cbd';
+                populateTimeDropdown('airport-to-cbd');
+            });
+            qbDirectionCbd.addEventListener('click', function() {
+                $$('.quick-book .qb-item').forEach(el => el.classList.remove('selected'));
+                this.classList.add('selected');
+                direction.value = 'cbd-to-airport';
+                populateTimeDropdown('cbd-to-airport');
+            });
+            qbToday.addEventListener('click', function() {
+                $$('.quick-book .qb-item').forEach(el => el.classList.remove('selected'));
+                this.classList.add('selected');
+                setDefaultDate();
+            });
+            qbTomorrow.addEventListener('click', function() {
+                $$('.quick-book .qb-item').forEach(el => el.classList.remove('selected'));
+                this.classList.add('selected');
+                const tomorrow = new Date();
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                const year = tomorrow.getFullYear();
+                const month = String(tomorrow.getMonth() + 1).padStart(2, '0');
+                const day = String(tomorrow.getDate()).padStart(2, '0');
+                travelDate.value = `${year}-${month}-${day}`;
+            });
+
+            // ---- Direction change ----
+            direction.addEventListener('change', function() {
+                populateTimeDropdown(this.value);
+            });
+
+            // ---- Booking Form ----
+            bookingForm.addEventListener('submit', handleBookingSubmit);
+
+            // ---- View Full Timetable ----
+            viewFullTimetableBtn.addEventListener('click', () => navigateTo('timetable'));
+
+            // ---- Print Ticket ----
+            printTicketBtn.addEventListener('click', () => window.print());
+
+            // ---- Email Ticket ----
+            emailTicketBtn.addEventListener('click', () => {
+                if (bookings.length === 0) {
+                    showToast('No ticket to email.', 'error');
+                    return;
+                }
+                const last = bookings[bookings.length - 1];
+                showToast(`📧 Ticket ${last.bookingNumber} would be emailed to ${last.passengerEmail}`, 'success');
+                // In a real app, this would trigger an email via API
+            });
+
+            // ---- Back from Ticket ----
+            backHomeFromTicketBtn.addEventListener('click', () => navigateTo('home'));
+
+            // ---- Scanner ----
+            scanSimulateBtn.addEventListener('click', simulateScan);
+
+            clearScanBtn.addEventListener('click', () => {
+                scanResult.classList.add('hidden');
+                scannedValue.textContent = '—';
+                scannedStatus.textContent = 'Validating…';
+                scannedStatus.className = 'sr-status';
+            });
+
+            // ---- Bookings Go Home ----
+            if (bookingsGoHomeLink) {
+                bookingsGoHomeLink.addEventListener('click', (e) => { e.preventDefault();
+                    navigateTo('home'); });
+            }
+
+            // ---- Keyboard shortcut for scanner (for demo) ----
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 's' && e.ctrlKey) {
+                    e.preventDefault();
+                    if (currentPage === 'scanner') simulateScan();
+                }
+            });
+
+            // ============================================================
+            // INIT
+            // ============================================================
+            function init() {
+                setDefaultDate();
+                populateTimeDropdown(direction.value);
+                renderDeparturePreview();
+                renderTimetable();
+                updateBookingBadge();
+                renderValidationHistory();
+
+                // If there are bookings, show the latest in ticket view if we're on ticket page
+                if (bookings.length > 0 && currentPage === 'ticket') {
+                    const last = bookings[bookings.length - 1];
+                    if (last) renderTicket(last);
+                }
+
+                // Quick select airport direction by default
+                qbDirectionAirport.classList.add('selected');
+
+                console.log('✈️ Airport EXPRESS ready!');
+                console.log(`📦 ${bookings.length} bookings loaded.`);
+                console.log('🔧 CONFIG:', CONFIG);
+            }
+
+            init();
+
+            // Expose for debugging
+            window.__app = {
+                bookings,
+                CONFIG,
+                navigateTo,
+                renderTicket,
+                simulateScan,
+                addBooking: (b) => { bookings.push(b);
+                    saveBookings();
+                    updateBookingBadge(); },
+                clearBookings: () => { bookings = [];
+                    saveBookings();
+                    updateBookingBadge();
+                    renderBookingsList(); }
+            };
+
+        })();
+    </script>
+
+</body>
+</html>
